@@ -23,7 +23,7 @@ JIT-SEC Pentest Recon Script is a Bash script designed for basic information gat
 
    ./JIT-SEC_recon.sh target_ip
 
-                            Features
+Features
 Nmap scan with basic and detailed options
 DNS Enumeration with enum4linux
 SNMP Enumeration with snmpwalk
@@ -31,7 +31,7 @@ Whois lookup
 DNS Zone Transfer with dig
 SSL Certificate Information
 
-                             Output
+Output
 Results will be saved in a directory named JIT-SEC_results within the script directory. The output files include:
 
 nmap_scan.txt
@@ -42,7 +42,7 @@ whois.txt
 dns_zone_transfer.txt
 ssl_certificate.txt
 
-                             Disclaimer
+Disclaimer
 
 Ensure you have explicit permission before using this script for penetration testing. Unauthorized access to systems is illegal and against ethical guidelines.
 
