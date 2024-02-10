@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # JIT-SEC - Pentest Recon Script
 
 # Usage: ./JIT-SEC_recon.sh target_ip
@@ -15,10 +13,10 @@ OUTPUT_DIR="JIT-SEC_results_$TARGET_IP"
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
 
-# JIT-SEC Banner
-echo "------------------------------------"
-echo "      JIT-SEC - Pentest Recon        "
-echo "------------------------------------"
+# Enlarged JIT-SEC Banner
+echo "--------------------------------------------------------"
+echo "         JIT-SEC - Pentest Reconnaissance Script         "
+echo "--------------------------------------------------------"
 
 # Function to check and install a tool
 check_and_install_tool() {
@@ -65,6 +63,13 @@ enum4linux "$TARGET_IP" > "$OUTPUT_DIR/enum4linux.txt"
 # SNMP Enumeration with snmpwalk
 echo "Running SNMP enumeration..."
 snmpwalk -v2c -c public "$TARGET_IP" > "$OUTPUT_DIR/snmp_enum.txt"
+snmp_status=$?
+
+if [ $snmp_status -eq 0 ]; then
+    echo "SNMP enumeration successful."
+else
+    echo "SNMP enumeration failed. Check SNMP configuration on the target system."
+fi
 
 # Whois lookup
 echo "Running whois lookup..."
@@ -77,6 +82,12 @@ dig axfr @"$TARGET_IP" > "$OUTPUT_DIR/dns_zone_transfer.txt"
 # SSL Certificate Information
 echo "Checking SSL certificate..."
 openssl s_client -showcerts -connect "$TARGET_IP":443 </dev/null 2>/dev/null | openssl x509 -noout -text > "$OUTPUT_DIR/ssl_certificate.txt"
+ssl_status=$?
+
+if [ $ssl_status -eq 0 ]; then
+    echo "SSL certificate check successful."
+else
+    echo "SSL certificate check failed. Check SSL configuration on the target system."
+fi
 
 echo "Reconnaissance completed. Results saved in $OUTPUT_DIR"
-
